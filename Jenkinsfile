@@ -5,17 +5,20 @@ pipeline {
         maven 'Maven'
         jdk 'JDK21'
     }
+
     stages {
         stage('Checkout') {
             steps {
                 git branch: 'master', url: 'https://github.com/indrajitgupta1620-hub/Demo2.git'
             }
         }
+
         stage('Build') {
             steps {
                 sh 'mvn compile'
             }
         }
+
         stage('Test') {
             steps {
                 sh 'mvn test'
@@ -26,14 +29,20 @@ pipeline {
                 }
             }
         }
+
         stage('Package') {
             steps {
                 sh 'mvn package -DskipTests'
             }
         }
+    }   // <-- This closing brace was missing
 
     post {
-        success { echo 'Pipeline succeeded!' }
-        failure { echo 'Pipeline failed!' }
+        success {
+            echo 'Pipeline succeeded!'
+        }
+        failure {
+            echo 'Pipeline failed!'
+        }
     }
 }
